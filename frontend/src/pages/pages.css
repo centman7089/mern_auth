@@ -1,0 +1,86 @@
+.sign {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  width: 30%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 2px solid gray;
+  border-radius: 10px;
+  background-color: aliceblue;
+ 
+}
+
+.sign input {
+  padding: 10px;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  width: 90%;
+
+}
+
+.sign button {
+    font-weight: bold;
+    color: white;
+  border: none;
+   padding: 10px;
+   border-radius: 4px;
+   color: white;
+   background-color: tomato;
+   font-size: 15px;
+   cursor: pointer;
+   margin-top: 20px;
+   width: 100%;
+}
+.sign button:hover {
+    background: green;
+}
+.sign span {
+  color: red;
+}
+.account {
+    padding: 10px;
+    
+    display: flex;
+    justify-items: center;
+    opacity: .2;
+}
+.account p{
+    color: #333;
+    font-size: 1rem;
+}
+p Link {
+    color:green;
+}
+.account Link:hover {
+    text-decoration: underline;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.yellow {
+  color: yellow;
+}
+.gray {
+  color: gray;
+}
+.strength {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.line {
+  display: flex;
+  justify-content: space-evenly;
+}
+.line2 {
+  height: 0.25rem;
+  width: 0.25rem;
+  border-radius: 50%;
+}
