@@ -14,25 +14,9 @@ const EmailVerificationPage = () => {
   const navigate = useNavigate();
 
 
-  const { error ,isLoading,verifyEmail,user} = useAuthStore();
+  const { error ,isLoading,verifyEmail} = useAuthStore();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const verificationCode = code.join("");
-    try {
-      await verifyEmail(verificationCode)
-      toast.success("Email verified successfully")
-       setTimeout(() => {
-         navigate("/");
-       }, 2000);
-    } catch (error) {
-      console.log(error);
-      
-    }
-    // alert(`Verification code submitted: ${verificationCode}`)
-    
 
-  }
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -64,6 +48,20 @@ const EmailVerificationPage = () => {
       inputRefs.current[index - 1].focus();
     }
   };
+
+
+	const handleSubmit = async (e) => {
+    e.preventDefault();
+    const verificationCode = code.join("");
+    try {
+      await verifyEmail(verificationCode);
+      navigate("/");
+      toast.success("Email verified successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   // Auto submit when all fields are filled
   useEffect(() => {
