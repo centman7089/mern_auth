@@ -1,5 +1,5 @@
 import express from "express"
-import { forgetPassword, login, logout, resetPassword, signup, verifyAuth, verifyEmail } from "../controllers/authController.js"
+import { forgetPassword, getUsers, login, logout, resetPassword, signup, verifyAuth, verifyEmail } from "../controllers/authController.js"
 
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -11,6 +11,7 @@ router.get("/verify-auth", verifyToken, verifyAuth);
 router.post("/signup", signup )
 router.post("/login", login)
 router.post("/logout",logout )
+router.get("/get-user",getUsers )
 
 
 

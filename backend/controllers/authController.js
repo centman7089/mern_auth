@@ -1,3 +1,4 @@
+// @ts-nocheck
 import User from "../models/userModels.js";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
@@ -11,10 +12,10 @@ import {
 } from "../mailtrap/emails.js";
 
 const signup = async (req, res) => {
-  const { email, password, name } = req.body;
+  const {name,email,password } = req.body;
   try {
     if (!email || !password || !name) {
-      throw new Error("All fields are required");
+      return res.status(404).json({message: "All fields are required"});
     }
 
     const userAlreadyExists = await User.findOne({ email });
@@ -100,37 +101,37 @@ const logout = async (req, res) => {
 
 const verifyEmail = async (req, res) => {
   //123456 code
-  const { code } = req.body;
-  try {
-    const user = await User.findOne({
-      verificationToken: code,
-      verificationTokenExpiresAt: { $gt: Date.now() },
-    });
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid or expired verification code",
-        user: {
-          ...user?._doc,
-          password: undefined,
-        },
-      });
-    }
+ const { code } = req.body;
+	try {
+		const user = await User.findOne({
+			verificationToken: code,
+			verificationTokenExpiresAt: { $gt: Date.now() },
+		});
 
-    user.isVerified = true;
-    user.verificationToken = undefined;
-    user.verificationTokenExpiresAt = undefined;
-    await user.save();
+		if (!user) {
+			return res.status(400).json({ success: false, message: "Invalid or expired verification code" });
+		}
 
-    // await sendWelcomeEmail(user.email, user.name);
-    res
-      .status(200)
-      .json({ success: true, message: "Email verified successfully" });
-  } catch (error) {
-    console.log("error in verifyEmail ", error);
+		user.isVerified = true;
+		user.verificationToken = undefined;
+		user.verificationTokenExpiresAt = undefined;
+		await user.save();
 
-    res.status(500).json({ success: false, message: "Server Eror" });
-  }
+		// await sendWelcomeEmail(user.email, user.name);
+
+		res.status(200).json({
+			success: true,
+			message: "Email verified successfully",
+			user: {
+				...user._doc,
+				password: undefined,
+			},
+		});
+	} catch (error) {
+		console.log("error in verifyEmail ", error);
+		res.status(500).json({ success: false, message: "Server error" });
+	}
+
 };
 
 const forgetPassword = async (req, res) => {
@@ -223,6 +224,21 @@ const verifyAuth = async (req, res) => {
   }
 };
 
+const getUsers = async ( req, res ) =>
+{
+ 
+try {
+  const user =  await User?.find().select("-password");
+  
+  return res.status(200).json(user)
+} catch (error) {
+      console.log("Error in getUsers ", error);
+    res.status(400).json({ success: false, message: error.message });
+}
+  
+
+}
+
 export {
   signup,
   login,
@@ -231,4 +247,5 @@ export {
   forgetPassword,
   resetPassword,
   verifyAuth,
+  getUsers
 };

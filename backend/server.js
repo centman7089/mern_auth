@@ -12,12 +12,18 @@ const PORT = process.env.PORT || 5000
 
  const __dirname = path.resolve();
 
-app.use(cors({ origin:"http://localhost:5173",credentials:true}))
+app.use( cors( { origin: "http://localhost:5173", credentials: true } ) );
 
 
 //middleware 
-app.use(express.json()) //allows us to parse incoming requests: req.body
-app.use(cookieParser()) //allows to parse incoming cookies
+app.use( express.json() ) //allows us to parse incoming requests: req.body
+app.use(express.urlencoded({ extended: true }));
+app.use( cookieParser() ) //allows to parse incoming cookies
+
+app.get( "/", ( req, res ) =>
+{
+    res.send("welcome onboard")
+})
 
 app.use("/api/auth", authRoutes)
 //to build the appication

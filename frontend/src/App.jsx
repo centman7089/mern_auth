@@ -13,6 +13,7 @@ import DashboardPage from "./pages/DashboardPage";
 import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
+import React from "react";
 
 //protcted route that require authentication
 const ProtectedRoute = ({ children }) => {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from "framer-motion";
 import Input from "../components/Input";
 import {  Loader, Lock, Mail, User } from "lucide-react";
@@ -22,7 +23,7 @@ const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signup(email, password, name)
+      await signup(name, email, password)
        navigate("/verify-email")
     } catch (error) {
       console.log(error);
